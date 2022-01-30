@@ -1,6 +1,5 @@
 from flask import Flask, jsonify, request
 from flask_marshmallow import Marshmallow
-from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 import bcrypt
 import os
@@ -13,7 +12,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
-migrate = Migrate(app, db)
 
 # Modelo
 class User(db.Model):
@@ -48,7 +46,9 @@ class UserSchema(ma.SQLAlchemySchema):
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)
 
-db.create_all()
+@app.before_first_request
+def create_tables():
+    db.create_all()
 
 # Rutas
 @app.route('/users')
