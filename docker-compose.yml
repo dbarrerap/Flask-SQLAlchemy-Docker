@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  db:
+    image: mariadb:10.6-focal
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: t00r
+      MARIADB_DATABASE: flask
+      MARIADB_USER: flask-user
+      MARIADB_PASSWORD: p4ssw0rd
+    volumes:
+      - ./datadir:/var/lib/mysql
+    networks:
+      flask-net:
+        ipv4_address: 172.16.0.2
+
+  micro:
+    depends_on:
+      - db
+    image: dbarrerap/flask-docker:latest
+    ports:
+      - "5000:5000"
+    restart: always
+    environment:
+      FLASK_ENV: development
+    networks:
+      flask-net:
+        ipv4_address: 172.16.0.3
+
+networks:
+  flask-net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.0.0/24

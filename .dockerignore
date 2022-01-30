@@ -1,0 +1,7 @@
+# Directories
+venv
+datadir
+.git
+
+#Files
+Dockerfile
