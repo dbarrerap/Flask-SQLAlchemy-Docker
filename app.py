@@ -46,9 +46,7 @@ class UserSchema(ma.SQLAlchemySchema):
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)
 
-@app.before_first_request
-def create_tables():
-    db.create_all()
+db.create_all()
 
 # Rutas
 @app.route('/users')
