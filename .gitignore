@@ -28,8 +28,8 @@ instance/
 .webassets-cache
 
 # Environments
-.env
-.venv
+*.env
+*.venv
 env/
 venv/
 ENV/
