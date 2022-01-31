@@ -7,7 +7,7 @@ import os
 app = Flask(__name__)
 
 basedir = os.path.abspath(os.path.dirname(__name__))
-app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+mysqlconnector://flask-user:p4ssw0rd@172.16.0.2/flask"
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+mysqlconnector://flask-user:p4ssw0rd@db/flask"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)

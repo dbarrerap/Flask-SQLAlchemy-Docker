@@ -10,8 +10,7 @@ services:
     volumes:
       - ./datadir:/var/lib/mysql
     networks:
-      flasknet:
-        ipv4_address: 172.16.0.2
+      - flasknet
 
   micro:
     depends_on:
