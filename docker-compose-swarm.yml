@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  db:
+    image: mariadb:10.6-focal
+    hostname: db
+    restart: always
+    env_file:
+      - mariadb.env
+    volumes:
+      - ./datadir:/var/lib/mysql
+    networks:
+      - flasknet
+
+  micro:
+    depends_on:
+      - db
+    build: .
+    image: flaskapi
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
+    deploy:
+      replicas: 3
+    networks:
+      - flasknet
+
+networks:
+  flasknet:
+    driver: overlay
